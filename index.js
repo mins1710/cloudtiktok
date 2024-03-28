@@ -8,7 +8,7 @@ const mongoURI = 'mongodb://localhost:27017/toktok';
 const bodyParser = require('body-parser');
 
 const wsController = require('./controllers/wsController'); // Import WebSocket controller
-
+require("./startup/startup")();
 const path = require('path');
 
 const app = express();
