@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device Management Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1>Device Management Dashboard</h1>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Device Name</th>
+        <th scope="col">IP Address</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+   <!-- Device data will be inserted here -->
+<tbody id="deviceTableBody">
+  
+  </tbody>
+  
+  </table>
+
+
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // Mock device data (replace with actual data from your server)
+  const devices = [
+    { name: 'Device 1', ipAddress: '192.168.1.101', status: 'Online' },
+    { name: 'Device 2', ipAddress: '192.168.1.102', status: 'Offline' },
+    { name: 'Device 3', ipAddress: '192.168.1.103', status: 'Online' }
+  ];
+
+  // Function to populate device table and select options
+  // Function to populate device table and select options
+  function populateDevices() {
+  const deviceTableBody = $('#deviceTableBody');
+
+  devices.forEach(device => {
+    const row = `<tr>
+                  <td>${device.name}</td>
+                  <td>${device.ipAddress}</td>
+                  <td>${device.status}</td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Script
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Script 1</a>
+                        <a class="dropdown-item" href="#">Script 2</a>
+                        <a class="dropdown-item" href="#">Script 3</a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-action">Run</button>
+                  </td>
+                </tr>`;
+    deviceTableBody.append(row);
+  });
+
+    // Event listener for the "Run/Stop" button
+    $('.btn-action').click(function() {
+        const btn = $(this);
+        const deviceName = btn.closest('tr').find('td:first').text();
+        const isRunning = btn.hasClass('btn-success'); // Check if the button is in "Run" state
+
+        // Toggle button state and update text accordingly
+        if (isRunning) {
+        btn.removeClass('btn-success').addClass('btn-danger').text('Stop');
+        console.log('Running script for device:', deviceName);
+        // Add logic to run script for the selected device
+        } else {
+        btn.removeClass('btn-danger').addClass('btn-success').text('Run');
+        console.log('Stopping script for device:', deviceName);
+        // Add logic to stop script for the selected device
+        }
+    });
+    }
+
+
+
+
+
+
+  // Populate devices when the page is loaded
+  $(document).ready(() => {
+    populateDevices();
+  });
+</script>
+
+</body>
+</html>
