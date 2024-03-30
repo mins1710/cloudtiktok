@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const deviceController = require('../controllers/deviceController');
-const {sendMessageToSerialNumber} = require("../controllers/wsController");
+const {sendMessageToSerialNumber,sendMessageToAll} = require("../controllers/wsController");
 // Routes for managing devices
 
 // Get all devices
@@ -27,6 +27,16 @@ router.post("/send", (req,res) => {
         sendMessageToSerialNumber(serialNumber, message);
         return res.status(200).send(serialNumber);
    } catch (error) {
+        return res.status(500).send(error);
+   }
+});
+router.post("/sendAll", (req,res) => {
+   try {
+        const {message} = req.body;
+        sendMessageToAll(message);
+        return res.status(200).send("All");
+   } catch (error) {
+        console.log(error)
         return res.status(500).send(error);
    }
 });
