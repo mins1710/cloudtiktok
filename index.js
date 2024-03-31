@@ -30,11 +30,7 @@ mongoose
   });
 
 // Serve static files from the public directory
-<<<<<<< HEAD
-app.use(express.static(path.join(__dirname, "public")));
-=======
 app.use(express.static("public"));
->>>>>>> fb9bb8c (zz)
 
 // Create an HTTP server
 const server = http.createServer(app);
@@ -45,20 +41,12 @@ const wss = new WebSocket.Server({ server });
 // WebSocket route for sending messages to all devices
 wss.on("connection", wsController.handleConnection); // Import WebSocket controller);
 // Route to render the dashboard.html file
-<<<<<<< HEAD
 app.get("/dashboard", async (req, res) => {  
   const devices = await getDevices(req.query.connection);
   return res.render("dashboard", { devicesServer: devices.data});
   // res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
-=======
-app.get('/dashboard', (req, res) => {
-    return res.render('dashboard',{"server": "127.0.0.1"});
-    // res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
-  });
-  
->>>>>>> fb9bb8c (zz)
 // Route to check status of a device
 
 app.use("/device", require("./routes/deviceRoutes"));
