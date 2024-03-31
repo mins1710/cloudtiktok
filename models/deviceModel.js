@@ -10,7 +10,8 @@ const deviceSchema = new mongoose.Schema({
   totalActiveTime: { type: Number, default: 0 }, // Assuming this is meant to be total active time
   totalInactiveTime: { type: Number, default: 0 }, // Assuming this is meant to be total inactive time
   totalActiveDay: { type: Number, default: 0 },
-  serialNumber: {type: String, required:true, unique: true}
+  serialNumber: {type: String, required:true, unique: true},
+  recentMessages: [{ type: String }]
 });
 
 const Device = mongoose.model('Device', deviceSchema);

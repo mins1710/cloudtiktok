@@ -7,6 +7,7 @@ const {
   sendMessageToSerialNumber,
   sendMessageToAll,
 } = require("../controllers/wsController");
+const Device = require("../models/deviceModel");
 // Routes for managing devices
 
 // Get all devices
@@ -55,6 +56,20 @@ router.post("/sendAll", (req, res) => {
     return res.status(500).send(error);
   }
 });
+
+router.post("/recent_messages", async (req,res) => {
+  try {
+    const {message,serialNumber} = req.body;
+    const device = await Device.findOne({serialNumber: serialNumber});
+    if (!device) throw new Error("Device not found");
+    device.recentMessages.push(message);
+    await device.save();
+    return res.status(200).send("Updated recent messages");
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message);
+  }
+})
 // Create a new device
 router.post("/", deviceController.createDevice);
 

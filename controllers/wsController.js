@@ -42,7 +42,7 @@ function sendMessageToSerialNumber(serialNumber, message) {
 // Function to send message to all connected devices
 function sendMessageToAll(message) {
   connectedDevices.forEach(function each(device) {
-    device.send(message);
+    device.send(JSON.stringify(message));
   });
 }// Function to get all connected devices
 function getAllConnectedDevices() {
