@@ -15,77 +15,97 @@
       href="https:////cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css"
       rel="stylesheet"
     />
+    <style>
+      input:focus {
+        outline: none;
+      }
+
+      .dt-length {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+    </style>
   </head>
   <body>
     <div class="container mt-5">
       <h1>Device Management Dashboard</h1>
-      <div style="display: flex; gap: 8px; flex-direction: column">
-        <div style="display: flex; justify-content: space-between; gap: 8px">
-          <form>
-            <label class="form-label" for="connection"
-              >Choose a connection:</label
-            >
-            <select
-              class="form-select form-control"
-              aria-label="Default select example"
-              name="connection"
-              id="connection"
-              type="submit"
-              onchange="this.form.submit()"
-            >
-              <option value="all">All Connection</option>
-              <option value="online">Online</option>
-              <option value="offline">Offline</option>
-            </select>
-          </form>
-        </div>
-        <form style="display: none" id="run-script-form">
+      <div style="display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; gap: 8px; justify-content: space-between">
           <div style="display: flex; gap: 8px">
-            <div style="display: flex; gap: 8px; align-items: center">
+            <form style="display: flex; align-items: center; gap: 8px">
               <label
+                style="white-space: nowrap"
                 class="form-label"
                 for="connection"
-                style="white-space: nowrap"
-                >Choose a script:</label
+                >Choose a connection:</label
               >
               <select
                 class="form-select form-control"
                 aria-label="Default select example"
-                name="selectedScript"
-                id="selectedScript"
+                name="connection"
+                id="connection"
+                type="submit"
+                onchange="this.form.submit()"
               >
-                <option value="script1">Script1</option>
-                <option value="script2">Script2</option>
-                <option value="script3">Script3</option>
-                <option value="script4">Script4</option>
+                <option value="all">All Connection</option>
+                <option value="online">Online</option>
+                <option value="offline">Offline</option>
               </select>
-            </div>
-            <button type="submit" class="btn btn-primary" id="runScriptButton">
-              Run Script
-            </button>
+            </form>
           </div>
-        </form>
-      </div>
+          <form style="display: none" id="run-script-form">
+            <div style="display: flex; gap: 8px">
+              <div style="display: flex; gap: 8px; align-items: center">
+                <label
+                  class="form-label"
+                  for="connection"
+                  style="white-space: nowrap"
+                  >Choose a script:</label
+                >
+                <select
+                  class="form-select form-control"
+                  aria-label="Default select example"
+                  name="selectedScript"
+                  id="selectedScript"
+                >
+                  <option value="script1">Script1</option>
+                  <option value="script2">Script2</option>
+                  <option value="script3">Script3</option>
+                  <option value="script4">Script4</option>
+                </select>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="runScriptButton"
+              >
+                Run Script
+              </button>
+            </div>
+          </form>
+        </div>
 
-      <table class="table mt-4" id="device-table">
-        <thead>
-          <tr>
-            <th scope="col">Device Name</th>
-            <th scope="col">IP Address</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <!-- Device data will be inserted here -->
-        <tbody id="deviceTableBody">
-          <% devicesServer.forEach(function(dat) { %>
-          <tr>
-            <td><%= dat.name %></td>
-            <td><%= dat.ipAddress%></td>
-            <td><%= dat.status%></td>
-          </tr>
-          <% }); %>
-        </tbody>
-      </table>
+        <table class="table mt-4" id="device-table">
+          <thead>
+            <tr>
+              <th scope="col">Device Name</th>
+              <th scope="col">IP Address</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <!-- Device data will be inserted here -->
+          <tbody id="deviceTableBody">
+            <% devicesServer.forEach(function(dat) { %>
+            <tr>
+              <td><%= dat.name %></td>
+              <td><%= dat.ipAddress%></td>
+              <td><%= dat.status%></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- jQuery -->
