@@ -14,7 +14,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
-
+app.set('view engine', 'ejs');
 // Connect to MongoDB
 mongoose.connect(mongoURI, {
   useNewUrlParser: true,
@@ -40,7 +40,8 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', wsController.handleConnection );// Import WebSocket controller);
 // Route to render the dashboard.html file
 app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+    return res.render('dashboard');
+    // res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
   });
   
 // Route to check status of a device
