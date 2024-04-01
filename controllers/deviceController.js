@@ -36,7 +36,7 @@ exports.getAllDevices = async () => {
   }
 };
 
-exports.getDevices = async (connection) => {
+exports.getDevices = async (connection = "all") => {
   try {
     const devices = await Device.find({
       status:

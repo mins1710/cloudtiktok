@@ -53,6 +53,12 @@
                 <option value="offline">Offline</option>
               </select>
             </form>
+            <button type="submit" class="btn btn-primary" id="selectAll">
+              Select all
+            </button>
+            <button type="submit" class="btn" id="deselectAll">
+              Deselect all
+            </button>
           </div>
           <form style="display: none" id="run-script-form">
             <div style="display: flex; gap: 8px">
@@ -89,6 +95,7 @@
         <table class="table mt-4" id="device-table">
           <thead>
             <tr>
+              <th scope="col"></th>
               <th scope="col">Device Name</th>
               <th scope="col">IP Address</th>
               <th scope="col">Status</th>
@@ -98,6 +105,7 @@
           <tbody id="deviceTableBody">
             <% devicesServer.forEach(function(dat) { %>
             <tr>
+              <td><input class="form-check-input" type="checkbox" value=""</td>
               <td><%= dat.name %></td>
               <td><%= dat.ipAddress%></td>
               <td><%= dat.status%></td>
@@ -120,24 +128,67 @@
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
     <script>
       var serialNumbers = [];
+      var runScriptForm;
+      var dataTable;
+      var selectAllBtn;
+      var deselectAllBtn;
       $(document).ready(() => {
-        var dataTable = $("#device-table").DataTable();
+        selectAllBtn = $("#selectAll");
+        deselectAllBtn = $("#deselectAll");
+        runScriptForm = $("#run-script-form");
+        dataTable = $("#device-table").DataTable({
+          aoColumnDefs: [
+            {
+              bSortable: false,
+              aTargets: [0],
+            },
+          ],
+        });
         dataTable.on("click", "tbody tr", function (e) {
           e.currentTarget.classList.toggle("selected");
+          e.currentTarget.classList.has;
+          $(e.currentTarget)
+            .find("input[type=checkbox]")
+            .prop("checked", e.currentTarget.classList.contains("selected"));
           const selected = dataTable.rows(".selected").data().length;
           const selectedDevices = dataTable.rows({ selected: true }).data();
           serialNumbers = $.map(selectedDevices, function (item) {
             return item[0];
           });
           if (selected > 0) {
-            $("#run-script-form").show();
+            runScriptForm.show();
           } else {
-            $("#run-script-form").hide();
+            runScriptForm.hide();
           }
         });
 
         const params = new URLSearchParams(window.location.search);
-        $("#connection").val(params.get("connection"));
+        $("#connection").val(params.get("connection") || "all");
+
+        selectAllBtn.on("click", function () {
+          $("#device-table").find("tr").removeClass("selected");
+          $("#device-table").find("tr").addClass("selected");
+          $("#device-table")
+            .find("tr")
+            .find("input[type=checkbox]")
+            .prop("checked", true);
+          serialNumbers = $.map(dataTable.rows().data(), function (item) {
+            return item[1];
+          });
+          if (serialNumbers.length > 0) {
+            runScriptForm.show();
+          }
+        });
+
+        deselectAllBtn.on("click", function () {
+          $("#device-table").find("tr").removeClass("selected");
+          $("#device-table")
+            .find("tr")
+            .find("input[type=checkbox]")
+            .prop("checked", false);
+          serialNumbers = [];
+          runScriptForm.hide();
+        });
       });
 
       function runScript() {
