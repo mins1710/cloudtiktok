@@ -15,6 +15,8 @@ const { getAllDevices, getDevices } = require("./controllers/deviceController");
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.set("view engine", "ejs");
 // Connect to MongoDB
 mongoose
@@ -50,6 +52,8 @@ app.get("/dashboard", async (req, res) => {
 // Route to check status of a device
 
 app.use("/device", require("./routes/deviceRoutes"));
+app.use("/resource", require("./routes/proxyRoutes"));
+app.use("/files", require("./routes/scriptRoutes"));
 
 app.get("/check-status", (req, res) => {
   res.json({ devices: wsController.getAllConnectedDevices() });
