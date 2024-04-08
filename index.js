@@ -54,6 +54,7 @@ app.get("/dashboard", async (req, res) => {
 app.use("/device", require("./routes/deviceRoutes"));
 app.use("/resource", require("./routes/proxyRoutes"));
 app.use("/files", require("./routes/scriptRoutes"));
+app.use("/data", require("./routes/accountRoutes"));
 
 app.get("/check-status", (req, res) => {
   res.json({ devices: wsController.getAllConnectedDevices() });
