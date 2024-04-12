@@ -18,10 +18,10 @@ async function createProxy(ipAddress, port, username, password) {
         const proxiesObject = proxiesArray.map(proxy => {
             const proxyParts = proxy.split(':').map(line => line);
             return {
-                ipAddress: proxyParts[2],
-                port: proxyParts[3],
-                username: proxyParts[0],
-                password: proxyParts[1]
+                ipAddress: proxyParts[0],
+                port: proxyParts[1],
+                username: proxyParts[2],
+                password: proxyParts[3]
             }
         });
         return proxiesObject;

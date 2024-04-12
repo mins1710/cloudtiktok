@@ -1,6 +1,6 @@
 const Device = require("../models/deviceModel");
 
-exports.authenticateDevice = async (serialNumber) => {
+exports.authenticateDevice = async (serialNumber,wifi_address) => {
   try {
     let device = await Device.findOne({ serialNumber: serialNumber });
     if (!device)
@@ -10,6 +10,7 @@ exports.authenticateDevice = async (serialNumber) => {
         status: "online",
         scripts: [],
         serialNumber: serialNumber,
+        wifi_address: wifi_address
       });
     this.updateDeviceStatus({ id: device._id, status: "online" });
   } catch (error) {
@@ -59,6 +60,7 @@ exports.createDevice = async ({
   status = "offline",
   scripts = [],
   serialNumber,
+  wifi_address
 }) => {
   const device = new Device({
     name,
@@ -66,6 +68,8 @@ exports.createDevice = async ({
     status,
     scripts,
     serialNumber,
+    wifi_address
+
   });
 
   try {

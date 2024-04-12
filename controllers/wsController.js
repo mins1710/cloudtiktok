@@ -7,12 +7,14 @@ const connectedDevices = new Map();
 // Function to handle WebSocket connections
 function handleConnection(ws,req) {
 
-  const serialNumber = req.url.substring(1);
-  authenticateDevice(serialNumber);
+  
+  let match = req.url.match(/\/([^/]+)/g);
+  const serialNumber = match[0].slice(1);
+  const wifi_address = match[1].slice(1);
+  authenticateDevice(serialNumber,wifi_address);
   console.log('New device connected');
 
   // Authenticate device
-
   // 
   connectedDevices.set(serialNumber,ws);
   

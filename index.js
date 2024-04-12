@@ -45,7 +45,7 @@ wss.on("connection", wsController.handleConnection); // Import WebSocket control
 // Route to render the dashboard.html file
 app.get("/dashboard", async (req, res) => {  
   const devices = await getDevices(req.query.connection);
-  return res.render("dashboard", { devicesServer: devices.data});
+  return res.render("manage", { devicesServer: devices.data});
   // res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
