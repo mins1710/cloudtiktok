@@ -103,27 +103,32 @@ router.post("/scripts/runAll" , async (req, res) => {
 
 router.post("/helper/decode", async(req,res) => {
     try {
-        const {email} = req.body;
-        console.log(email);
+        const {email,type} = req.body;
         const response= await axios.post("https://sinhhv.bmctech.one:8080/api/get-mail-by-query",{
             "email": email,
             "filter": "@account.tiktok.com",
-            "type":"read",
             "limit":1
         }, {
             headers: {
             'Content-Type': 'application/json'
             }
         });
-        console.log(response.data["status"])
         
         if (response.data["status"] === "OK"){
                 const data = response.data.data;
                 const base64String = data[0]["payload"]["body"]["data"]
                 const decodedString = Buffer.from(base64String, 'base64').toString();
                 const $ = cheerio.load(decodedString);
-                const href = $('body').find('a').attr('href');
-                return res.status(200).send(href);
+               if (type == "VERIFY"){
+                    const href = $('body').find('a').attr('href');
+                    return res.status(200).send(href);
+               }
+               if (type == "OTP"){
+                    const verificationCodeParagraph = $('p').eq(1);
+                    console.log(verificationCodeParagraph);
+                    const verificationCode = verificationCodeParagraph.text().trim();
+                    return res.status(200).send(verificationCode);
+               }
         }
         return res.status(400).send("Invalid");
         
