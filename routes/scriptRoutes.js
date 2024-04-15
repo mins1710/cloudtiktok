@@ -121,6 +121,7 @@ router.post("/helper/decode", async(req,res) => {
                 const $ = cheerio.load(decodedString);
                if (type == "VERIFY"){
                     const href = $('body').find('a').attr('href');
+                    if (href === "https://support.tiktok.com/") return res.status(400).send("Invalid URL");
                     return res.status(200).send(href);
                }
                if (type == "OTP"){
