@@ -33,6 +33,7 @@ mongoose
 
 // Serve static files from the public directory
 app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, '/uploads/scripts')))
 
 // Create an HTTP server
 const server = http.createServer(app);

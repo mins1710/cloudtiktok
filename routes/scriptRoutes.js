@@ -4,6 +4,8 @@ const multer = require('multer');
 const path = require('path');
 const scriptController = require('../controllers/scriptController');
 
+const fs = require('fs');
+const archiver = require('archiver');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
@@ -138,5 +140,22 @@ router.post("/helper/decode", async(req,res) => {
         return res.status(400).send("Invalid message");
     }
 })
+
+
+
+
+// Define a route to handle folder download
+router.get('/data/sync', (req, res) => {
+    const folderPath = './uploads/scripts/scripts'; 
+    const archive = archiver('zip', {
+        zlib: { level: 9 } // Compression level
+    });
+
+    const archiveName = 'data.zip';
+    res.attachment(archiveName);
+    archive.pipe(res);
+    archive.directory(folderPath, false);
+    archive.finalize();
+});
 
 module.exports = router;
