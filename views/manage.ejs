@@ -368,7 +368,7 @@
                                     the construction function: <code>$().DataTable();</code>.
                                 </p>
 
-                                <table id="datatable" class="table table-bordered">
+                                <table id="devices" class="table table-bordered">
                                     
                                 </table>
 
@@ -428,8 +428,37 @@
         <script src="assets/js/app.js"></script>
         <script>
             $(document).ready(function() {
-                $('#datatable2').DataTable();  
-            } );
+                const devicesString = '<%- JSON.stringify(devices)%>';
+                const scriptsString = '<%- JSON.stringify(scripts)%>';
+                const devices = JSON.parse(devicesString)
+                const scripts = JSON.parse(scriptsString)
+                const mergeData = [...devices, ...scripts];
+                console.log(mergeData)
+                const table = $('#devices').DataTable({
+                    data: mergeData,
+                    columns: [
+                        { data: 'name', title: "Name" },
+                        { data: 'wifi_address', title: "Wifi Name" },
+                        { data: 'serialNumber', title: "Serial Number" },
+                        { data: 'status', title: "Status" },
+                        { data: 'recentMessages', title: "Logs" },
+                        { data: 'scripts', title: "Scripts" },
+                        {
+                            data: null, title: 'Run', render: function (data, type, row) {
+                                return "<button class='btn btn-primary'>Run</button>"
+                            }
+                        },
+                        {
+                            data: null, title: 'Stop', render: function (data, type, row) {
+                                return "<button class='btn btn-danger'>Stop</button>"
+                            }
+                        },
+                        { data: 'recentMessages', title: "Running Scripts" },
+                    ]
+                    })
+                } );
+
+                
         </script>
 
     </body>

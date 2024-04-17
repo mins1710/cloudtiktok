@@ -6,6 +6,7 @@ const WebSocket = require("ws"); // WebSocket library
 const mongoose = require("mongoose");
 const mongoURI = "mongodb://localhost:27017/toktok";
 const bodyParser = require("body-parser");
+const scriptController = require('./controllers/scriptController');
 
 const wsController = require("./controllers/wsController"); // Import WebSocket controller
 require("./startup/startup")();
@@ -46,8 +47,8 @@ wss.on("connection", wsController.handleConnection); // Import WebSocket control
 // Route to render the dashboard.html file
 app.get("/dashboard", async (req, res) => {  
   const devices = await getDevices(req.query.connection);
-  return res.render("manage", { devicesServer: devices.data});
-  // res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+  const scripts = await scriptController.getAllScripts();
+  return res.render("manage", { devices: devices.data , scripts: scripts});
 });
 
 // Route to check status of a device
