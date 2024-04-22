@@ -29,6 +29,12 @@ const accountSchema = new mongoose.Schema({
         type: String,
         default: 'Tiktok',
         enum: ['Tiktok', 'Gmail'],
+    },
+    type : {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Proxy',
+        default: null
     }
 });
 

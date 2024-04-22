@@ -1,0 +1,85 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for toktok/public/assets/plugins/fullcalendar/vanillaCalendar.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">toktok/public/assets/plugins/fullcalendar</a> vanillaCalendar.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/28</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/11</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var vanillaCalendar=<span class="cstat-no" title="statement not covered" >{month:document.querySelectorAll('[data-calendar-area="month"]')[0],next:document.querySelectorAll('[data-calendar-toggle="next"]')[0],previous:document.querySelectorAll('[data-calendar-toggle="previous"]')[0],label:document.querySelectorAll('[data-calendar-label="month"]')[0],activeDates:null,date:new Date,todaysDate:new Date,init:<span class="fstat-no" title="function not covered" >fu</span>nction(t){<span class="cstat-no" title="statement not covered" >this.options=t,this.date.setDate(1),this.createMonth(),this.createListeners()}</span>,createListeners:<span class="fstat-no" title="function not covered" >fu</span>nction(){var t=<span class="cstat-no" title="statement not covered" >this;<span class="cstat-no" title="statement not covered" ></span>this.next.addEventListener("click",<span class="fstat-no" title="function not covered" >fu</span>nction(){<span class="cstat-no" title="statement not covered" >t.clearCalendar();v</span>ar e=<span class="cstat-no" title="statement not covered" >t.date.getMonth()+1;<span class="cstat-no" title="statement not covered" ></span>t.date.setMonth(e),t.createMonth()}</span>),this.previous.addEventListener("click",<span class="fstat-no" title="function not covered" >fu</span>nction(){<span class="cstat-no" title="statement not covered" >t.clearCalendar();v</span>ar e=<span class="cstat-no" title="statement not covered" >t.date.getMonth()-1;<span class="cstat-no" title="statement not covered" ></span>t.date.setMonth(e),t.createMonth()}</span>)}</span>,createDay:<span class="fstat-no" title="function not covered" >fu</span>nction(t,e,a){var n=<span class="cstat-no" title="statement not covered" >document.createElement("div"),</span>s=<span class="cstat-no" title="statement not covered" >document.createElement("span");<span class="cstat-no" title="statement not covered" ></span>s.innerHTML=t,n.className="vcal-date",n.setAttribute("data-calendar-date",this.date),1===t&amp;&amp;(n.style.marginLeft=0===e?6*14.28+"%":14.28*(e-1)+"%"),this.options.disablePastDays&amp;&amp;this.date.getTime()&lt;=this.todaysDate.getTime()-1?n.classList.add("vcal-date--disabled"):(n.classList.add("vcal-date--active"),n.setAttribute("data-calendar-status","active")),this.date.toString()===this.todaysDate.toString()&amp;&amp;n.classList.add("vcal-date--today"),n.appendChild(s),this.month.appendChild(n)}</span>,dateClicked:<span class="fstat-no" title="function not covered" >fu</span>nction(){var t=<span class="cstat-no" title="statement not covered" >this;<span class="cstat-no" title="statement not covered" ></span>this.activeDates=document.querySelectorAll('[data-calendar-status="active"]');<span class="cstat-no" title="statement not covered" >f</span>or(var e=<span class="cstat-no" title="statement not covered" >0;</span>e&lt;this.activeDates.length;e++)<span class="cstat-no" title="statement not covered" >this.activeDates[e].addEventListener("click",<span class="fstat-no" title="function not covered" >fu</span>nction(e){<span class="cstat-no" title="statement not covered" >document.querySelectorAll('[data-calendar-label="picked"]')[0].innerHTML=this.dataset.calendarDate,t.removeActiveClass(),this.classList.add("vcal-date--selected")}</span>)}</span></span>,createMonth:<span class="fstat-no" title="function not covered" >fu</span>nction(){<span class="cstat-no" title="statement not covered" >for(var t=<span class="cstat-no" title="statement not covered" >this.date.getMonth();</span>this.date.getMonth()===t;)<span class="cstat-no" title="statement not covered" >this.createDay(this.date.getDate(),this.date.getDay(),this.date.getFullYear()),this.date.setDate(this.date.getDate()+1);<span class="cstat-no" title="statement not covered" >t</span></span>his.date.setDate(1),this.date.setMonth(this.date.getMonth()-1),this.label.innerHTML=this.monthsAsString(this.date.getMonth())+" "+this.date.getFullYear(),this.dateClicked()}</span>,monthsAsString:<span class="fstat-no" title="function not covered" >fu</span>nction(t){<span class="cstat-no" title="statement not covered" >return["January","Febuary","March","April","May","June","July","August","September","October","November","December"][t]}</span>,clearCalendar:<span class="fstat-no" title="function not covered" >fu</span>nction(){<span class="cstat-no" title="statement not covered" >vanillaCalendar.month.innerHTML=""}</span>,removeActiveClass:<span class="fstat-no" title="function not covered" >fu</span>nction(){<span class="cstat-no" title="statement not covered" >for(var t=<span class="cstat-no" title="statement not covered" >0;</span>t&lt;this.activeDates.length;t++)<span class="cstat-no" title="statement not covered" >this.activeDates[t].classList.remove("vcal-date--selected")}</span></span>};</span></pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2024-04-17T07:12:00.429Z
+            </div>
+        <script src="../../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../../sorter.js"></script>
+        <script src="../../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

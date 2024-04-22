@@ -12,7 +12,7 @@ const wsController = require("./controllers/wsController"); // Import WebSocket 
 require("./startup/startup")();
 const path = require("path");
 const { getAllDevices, getDevices } = require("./controllers/deviceController");
-
+const {getAllGroups} = require("./controllers/groupController");
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
@@ -49,6 +49,12 @@ app.get("/dashboard", async (req, res) => {
   const devices = await getDevices(req.query.connection);
   const scripts = await scriptController.getAllScripts();
   return res.render("manage", { devices: devices.data , scripts: scripts});
+});
+app.get("/groups", async (req, res) => {  
+  const devices = await getDevices(req.query.connection);
+  const groups = await getAllGroups();
+  const scripts = await scriptController.getAllScripts();
+  return res.render("group", { devices: devices.data , scripts: scripts,groups: groups});
 });
 
 // Route to check status of a device
