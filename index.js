@@ -4,9 +4,9 @@ const express = require("express");
 const http = require("http"); // Node.js HTTP module
 const WebSocket = require("ws"); // WebSocket library
 const mongoose = require("mongoose");
-const mongoURI = "mongodb://localhost:27017/toktok";
 const bodyParser = require("body-parser");
 const scriptController = require('./controllers/scriptController');
+const config = require('config');
 
 const wsController = require("./controllers/wsController"); // Import WebSocket controller
 require("./startup/startup")();
@@ -17,6 +17,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+const mongoURI = config.get('mongoURI');
 
 app.set("view engine", "ejs");
 // Connect to MongoDB
