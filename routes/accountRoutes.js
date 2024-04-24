@@ -2,6 +2,20 @@ const express = require('express');
 const router = express.Router();
 const accountController = require('../controllers/accountController');
 const Account = require("../models/accountModel");
+
+
+router.get('/account', async (req,res) => {
+   try {
+    const type = req.query.type;
+    if (!type) return res.status(400).send("Please specify a type");
+    const account = await Account.findOneAndUpdate({type: type, usedTikTok: false},{usedTikTok: true})
+    if (!account) return res.status(400).send("No account found");
+    return res.status(200).send(account);
+   } catch (error) {
+    return res.status(400).send(error.message);
+   }
+    
+})
 // Route to create a new account
 router.post('/accounts', async (req, res) => {
     try {
