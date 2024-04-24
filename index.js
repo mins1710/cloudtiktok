@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const mongoURI = config.get('mongoURI');
-
+console.log(mongoURI);
 app.set("view engine", "ejs");
 // Connect to MongoDB
 mongoose
