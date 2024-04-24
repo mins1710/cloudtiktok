@@ -1,7 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const accountController = require('../controllers/accountController');
+const Account = require("../models/accountModel");
 
+
+router.get('/account', async (req,res) => {
+   try {
+    const type = req.query.type;
+    if (!type) return res.status(400).send("Please specify a type");
+    const account = await Account.findOneAndUpdate({type: type, usedTikTok: false},{usedTikTok: true})
+    if (!account) return res.status(400).send("No account found");
+    return res.status(200).send(account);
+   } catch (error) {
+    return res.status(400).send(error.message);
+   }
+    
+})
 // Route to create a new account
 router.post('/accounts', async (req, res) => {
     try {
@@ -11,6 +25,19 @@ router.post('/accounts', async (req, res) => {
         res.status(500).json({ error: 'Could not create account' });
     }
 });
+
+router.post("/accounts/import", async (req,res) => {
+    try {
+        const accounts =  accountController.convertAccounts(req.body.data);
+        const type = req.body.type;
+        const accountsData = accounts.map(account => ({...account, type: type}));
+        await Account.insertMany(accountsData);
+        return res.status(200).json({accounts: accounts});
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).send("Internal server error")
+    }
+})
 
 // Route to get all accounts
 router.get('/accounts', async (req, res) => {

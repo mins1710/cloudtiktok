@@ -76,6 +76,7 @@ exports.createDevice = async ({
     const newDevice = await device.save();
     return { status: 201, data: newDevice };
   } catch (error) {
+    console.log(error);
     return { status: 400, error: error.message };
   }
 };

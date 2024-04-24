@@ -4,7 +4,6 @@ const accountSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
     },
     password: {
         type: String,
@@ -28,15 +27,14 @@ const accountSchema = new mongoose.Schema({
     type: {
         type: String,
         default: 'Tiktok',
-        enum: ['Tiktok', 'Gmail'],
+        enum: ['Tiktok', 'Gmail', "Microsoft"],
     },
-    type : {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Proxy',
-        default: null
+    usedTikTok: {
+        type: Boolean,
+        default: false
     }
 });
+accountSchema.index({ email: 1, type: 1 }, { unique: true })
 
 const Account = mongoose.model('Account', accountSchema);
 

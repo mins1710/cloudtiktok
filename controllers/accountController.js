@@ -11,6 +11,27 @@ async function createAccount(accountData) {
     }
 }
 
+ function convertAccounts(accountsString){
+    try {
+
+            const decodedString = Buffer.from(accountsString, 'base64').toString();
+            const accountsArray = decodedString.split("\n");
+            const accountObjects = accountsArray.map(account => {
+                const accountParts = account.split('|').map(line => line);
+                    return {
+                        email: accountParts[0],
+                        password: accountParts[1],
+                    }
+            });
+            const validAccounts  = accountObjects.filter(account => account.email || account.password);
+            console.log(validAccounts)
+            return validAccounts;
+        } catch (error) {
+            throw new Error("Internal Server Error");
+        }
+    
+}
+
 // Get all accounts
 async function getAllAccounts() {
     try {
@@ -48,5 +69,6 @@ module.exports = {
     createAccount,
     getAllAccounts,
     updateAccountById,
-    deleteAccountById
+    deleteAccountById,
+    convertAccounts
 };

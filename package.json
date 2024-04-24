@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nodemon index.js",
-    "dev": "cross-env NODE_ENV=dev node index.js",
+    "dev": "cross-env NODE_ENV=dev nodemon index.js",
     "prod": "cross-env NODE_ENV=production node index.js"
   },
   "author": "",
@@ -18,8 +18,11 @@
     "config": "^3.3.11",
     "ejs": "^3.1.9",
     "express": "^4.18.3",
+    "mailparser": "^3.7.0",
     "mongoose": "^8.2.2",
     "multer": "^1.4.5-lts.1",
+    "node-imap": "^0.9.6",
+    "node-pop3": "^0.9.0",
     "ws": "^8.16.0"
   },
   "devDependencies": {

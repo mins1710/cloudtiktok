@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const scriptController = require('../controllers/scriptController');
+const {fetchOutlookEmails}  = require("../helper/mail/microsoft");
 
 const fs = require('fs');
 const archiver = require('archiver');
@@ -101,6 +102,37 @@ router.post("/scripts/runAll" , async (req, res) => {
     catch (error) {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
+})
+
+router.post("/helper/decode/microsoft", async (req,res) => {
+  try {
+    const {email, password,type,from} = req.body;
+   
+    const emails = await fetchOutlookEmails(email,password);
+    let filteredEmails = emails;
+    console.log(filteredEmails)
+
+    if (from){
+        console.log(filteredEmails.length);
+        filteredEmails = emails.filter(email => email.from.endsWith(from));
+
+    }
+    const $ = cheerio.load(filteredEmails[0].html_body);
+    if (type == "VERIFY"){
+         const href = $('body').find('a').attr('href');
+         if (href === "https://support.tiktok.com/" || !href) return res.status(400).send("Invalid URL");
+         return res.status(200).send(href);
+    }
+    if (type == "OTP"){
+         const verificationCodeParagraph = $('p').eq(1);
+         console.log(verificationCodeParagraph);
+         const verificationCode = verificationCodeParagraph.text().trim();
+         return res.status(200).send(verificationCode);
+    }
+    return res.status(400).send("Invalid");
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
 })
 
 router.post("/helper/decode", async(req,res) => {
