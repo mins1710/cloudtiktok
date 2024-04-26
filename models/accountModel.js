@@ -27,7 +27,7 @@ const accountSchema = new mongoose.Schema({
     type: {
         type: String,
         default: 'Tiktok',
-        enum: ['Tiktok', 'Gmail', "Microsoft"],
+        enum: ['Tiktok', 'Gmail', "Microsoft","Tiktok_Hotmail"],
     },
     usedTikTok: {
         type: Boolean,
