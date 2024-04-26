@@ -15,7 +15,7 @@ async function createGroup(name, description, deviceModels, proxies, script) {
   } catch (error) {
     throw error; // Forward the error to the caller
   }
-}
+}   
 
 // Function to retrieve all groups
 async function getAllGroups() {
